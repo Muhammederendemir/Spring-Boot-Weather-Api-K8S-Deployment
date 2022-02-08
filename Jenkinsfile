@@ -11,7 +11,7 @@ pipeline {
 
         stage ('Maven Build') {
             steps {
-                withMaven(maven: 'maven') {
+                container('java') {
                     sh 'mvn clean'
                     sh 'mvn test'
                     sh 'mvn package'
