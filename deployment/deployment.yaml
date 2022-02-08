@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapi
+  namespace: weather-project
+spec:
+  selector:
+    matchLabels:
+      app: weatherapi
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: weatherapi
+    spec:
+      containers:
+        - name: weatherapi
+          image: "mhmmderen/weather-api:1.0.0"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+            - name: openweathermap.key
+              value: "71064c0b3727dd31141c74fe59e23d80"
