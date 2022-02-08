@@ -59,6 +59,6 @@ kubectl apply -f .
 
 > You can access the Weather Api from the following url.
 
-http://<Master-ip>:32000/temperature?city=sivas
+http://Master-ip:32000/temperature?city=sivas
 
 <img src="https://raw.githubusercontent.com/Muhammederendemir/Spring-Boot-Weather-Api-K8S-Deployment/master/images/temperature.png" alt="Spring Boot Weather Temperature Api" width="100%" height="100%"/> 
