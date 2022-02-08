@@ -6,8 +6,8 @@ metadata:
 spec:
   serviceAccount: jenkins
   containers:
-    - name: java
-      image: openjdk:19-jdk
+    - name: maven
+      image: maven:latest
       command:
         - cat
       tty: true
