@@ -6,9 +6,7 @@ pipeline {
         }
     }
 
-
     stages {
-
         stage ('Maven Build') {
             steps {
                 container('maven') {
@@ -31,8 +29,18 @@ pipeline {
 
         stage ('Image Push to Dockerhub') {
             steps {
-                sh 'docker push mhmmderen/weather-api:1.0.0'
+                 container('docker') {
+                    sh 'docker push mhmmderen/weather-api:1.0.0'
+                }
             }
+        }
+
+        stage('Kubernetes apply pods') {
+             steps {
+                container('kubectl') {
+                    sh "kubectl apply -f ./deployment/"
+                }
+             }
         }
 
     }
