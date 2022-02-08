@@ -6,6 +6,11 @@ metadata:
 spec:
   serviceAccount: jenkins
   containers:
+    - name: java
+      image: openjdk:19-jdk
+      command:
+        - cat
+      tty: true
     - name: docker
       image: docker:20.10
       command:
