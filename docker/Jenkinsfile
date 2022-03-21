@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+    		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred-muhammederen')
+    	}
+
+
     stages {
 
         stage ('Prepare') {
@@ -24,6 +29,13 @@ pipeline {
                 }
             }
         }
+
+        stage ('Dockerhub Login') {
+            steps {
+                sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+
 
         stage ('Build Docker Image') {
             steps {
