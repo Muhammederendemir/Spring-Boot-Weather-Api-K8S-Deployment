@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage ('Prepare') {
+            steps {
+               echo "started build."
+            }
+        }
+
+        stage ('Maven Build') {
+            steps {
+                withMaven(maven: 'maven') {
+                    sh 'mvn clean install '
+                }
+            }
+        }
+
+        stage ('Maven Test') {
+            steps {
+                withMaven(maven: 'maven') {
+                    sh 'mvn test '
+                }
+            }
+        }
+
+        stage ('Build Docker Image') {
+            steps {
+                sh 'docker build -t mhmmderen/weather-api:1.0.0 .'
+            }
+        }
+
+        stage ('Image Push to Dockerhub') {
+            steps {
+                sh 'docker push mhmmderen/weather-api:1.0.0'
+            }
+        }
+
+        stage ('Image pull from Dockerhub') {
+            steps {
+                sh 'docker-compose pull'
+            }
+        }
+
+        stage ('Deploy Project with docker-compose-prod file') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
+
+    }
+}
