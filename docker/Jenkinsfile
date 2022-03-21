@@ -32,7 +32,7 @@ pipeline {
 
         stage ('Dockerhub Login') {
             steps {
-                sh 'docker login dockerhub.detaysoft.com -u=${DOCKER_USERNAME_MUHAMMED} -p=${DOCKER_PASSWORD_MUHAMMED}'
+                sh 'docker login -u=${DOCKER_USERNAME_MUHAMMED} -p=${DOCKER_PASSWORD_MUHAMMED}'
             }
         }
 
