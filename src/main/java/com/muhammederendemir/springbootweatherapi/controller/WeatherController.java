@@ -33,7 +33,7 @@ public class WeatherController {
     @GetMapping(value = "/")
     public String getWelcomePage() {
 
-        return "Muhammed Eren Demir";
+        return "Test Detaysoft";
     }
 
     @GetMapping(value = "/temperature")
