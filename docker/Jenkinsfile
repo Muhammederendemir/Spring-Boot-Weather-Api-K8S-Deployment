@@ -22,26 +22,29 @@ pipeline {
             }
         }
 
-        stage ('Sonarqube analysis') {
-            steps {
-            withSonarQubeEnv('sonarqube') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'maven') {
-                        sh 'mvn clean package sonar:sonar'
+        stage('Test and code quality'){
+            parallel {
+                stage ('Sonarqube analysis') {
+                    steps {
+                    withSonarQubeEnv('sonarqube') {
+                            // Optionally use a Maven environment you've configured already
+                            withMaven(maven:'maven') {
+                                sh 'mvn clean package sonar:sonar'
+                            }
+                        }
+                    }
+                }
+
+
+                stage ('Maven Test') {
+                    steps {
+                        withMaven(maven: 'maven') {
+                            sh 'mvn test '
+                        }
                     }
                 }
             }
         }
-
-
-        stage ('Maven Test') {
-            steps {
-                withMaven(maven: 'maven') {
-                    sh 'mvn test '
-                }
-            }
-        }
-
         stage ('Dockerhub Login') {
             steps {
                 sh 'docker login -u=${DOCKER_USERNAME_MUHAMMED} -p=${DOCKER_PASSWORD_MUHAMMED}'
