@@ -33,11 +33,11 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/temperature")
-    public WeatherDTO getCityWeather(String city) throws Exception {
+    public WeatherDTO getCityWeather(String city)  {
 
         HttpHeaders headers=new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity=new HttpEntity<String>(headers);
+        HttpEntity<String> entity=new HttpEntity<>(headers);
 
         String content=restTemplate.exchange("https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+key, HttpMethod.GET,entity,String.class).getBody();
 
@@ -46,8 +46,6 @@ public class WeatherController {
         JSONObject main = root.getJSONObject("main");
         float temp = Float.parseFloat(main.get("temp").toString());
 
-
-        WeatherDTO weatherDTO=new WeatherDTO(temp);
-        return weatherDTO;
+        return new WeatherDTO(temp);
     }
 }
