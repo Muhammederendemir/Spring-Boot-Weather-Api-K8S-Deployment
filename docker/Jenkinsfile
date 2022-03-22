@@ -63,7 +63,7 @@ pipeline {
 
         stage ('Image pull from Dockerhub') {
             steps {
-                sh 'docker-compose pull'
+                sh 'docker pull mhmmderen/weather-api:1.0.0'
             }
         }
 
