@@ -24,8 +24,11 @@ pipeline {
 
         stage ('Sonarqube analysis') {
             steps {
-                withMaven( maven: 'maven') {
-                    sh 'mvn sonar:sonar  -Dsonar.host.url=http://192.168.2.79:9001  -Dsonar.login=fc44ecc7f7d03f8b367642a12851ac1d322b7956 '
+            withSonarQubeEnv('sonarqube') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'maven') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
         }
