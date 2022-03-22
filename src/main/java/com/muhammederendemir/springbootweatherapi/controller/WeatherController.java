@@ -29,7 +29,7 @@ public class WeatherController {
     @GetMapping(value = "/")
     public String getWelcomePage() {
 
-        return "Detaysoft";
+        return "Çalık Holding";
     }
 
     @GetMapping(value = "/temperature")
